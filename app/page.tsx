@@ -181,7 +181,7 @@ export default function Home() {
   const oauthLogin = async () => {
     setIsLoading(true)
     setOauthMessage("")
-    
+
     const oauthClient = new BrowserOAuthClient({
       clientMetadata: clientMetadata(), // これもクライアントサイドでの呼び出しが必要
       handleResolver: 'https://' + pdsUrl,
@@ -203,6 +203,7 @@ export default function Home() {
   const handleDelete = async (feed: Feed) => {
     setIsLoading(true)
     setDeleteError("")
+    const success = '非表示にしました:'+feed.feedName
     if (oauthAgent === undefined) {
       setDeleteError("未ログインです")
       return
@@ -223,7 +224,7 @@ export default function Home() {
       )
       setDeleteTarget(undefined)
       setFeeds(feeds.filter((f) => f !== feed))
-      setDeleteError("正常に非表示に出来ました")
+      setDeleteError(success)
     }
     catch (e) {
       setDeleteError("Error:" + e)
