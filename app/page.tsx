@@ -345,10 +345,7 @@ export default function Home() {
                   <p>
                     <span>{deleteTarget.feedName || "《フィード名が空です》"}</span> {/* Feed名を表示 */}
                   </p>
-                  <a href={deleteTarget.feedUrl} target="_blank" rel="noopener noreferrer">
-                    {deleteTarget.feedUrl}
-                  </a>
-                  <div>Blueskyに登録されているサーバーURL：{deleteTarget.did}</div>
+                  <div>稼働サーバー：{deleteTarget.did}</div>
                   {deleteTarget.error && <div className="text-red-500">{deleteTarget.error}</div>}
                 </div>
                 {/* 右端に配置される非表示ボタン */}
@@ -376,12 +373,9 @@ export default function Home() {
                   </div>
                   <div className="flex-grow"> {/* テキスト部分を広げる */}
                     <p>
-                      <span>{obj.feedName || "《フィード名が空です》"}</span> {/* Feed名を表示 */}
+                      <span> <a href={obj.feedUrl}>{obj.feedName || "《フィード名が空です》"}({obj.feedUrl.split('/').pop()})</a></span> {/* Feed名を表示 */}
                     </p>
-                    <a href={obj.feedUrl} target="_blank" rel="noopener noreferrer">
-                      {obj.feedUrl}
-                    </a>
-                    <div>Blueskyに登録されているサーバーURL：{obj.did}</div>
+                    <div>稼働サーバー：{obj.did}</div>
                     {obj.error && <div className="text-red-500">{obj.error}</div>}
                   </div>
                   {/* 右端に配置される非表示ボタン */}
@@ -395,7 +389,7 @@ export default function Home() {
                       });
                     }}
                   >
-                    非表示
+                    選択
                   </div>
                 </div>
               ))}
