@@ -181,7 +181,7 @@ export default function Home() {
   const oauthLogin = async () => {
     setIsLoading(true)
     setOauthMessage("")
-    /*
+    
     const oauthClient = new BrowserOAuthClient({
       clientMetadata: clientMetadata(), // これもクライアントサイドでの呼び出しが必要
       handleResolver: 'https://' + pdsUrl,
@@ -197,7 +197,6 @@ export default function Home() {
       ui_locales: 'ja-JP', // Only supported by some OAuth servers (requires OpenID Connect support + i18n support)
       signal: new AbortController().signal, // Optional, allows to cancel the sign in (and destroy the pending authorization, for better security)
     })
-      */
   }
 
 
