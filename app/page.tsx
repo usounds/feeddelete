@@ -238,7 +238,10 @@ export default function Home() {
   return (
     <div className="flex justify-center items-center max-w-[800px] mx-auto mt-10">
       <main className="flex flex-col items-center sm:items-start text-sm text-center sm:text-left">
-        <p className='mb-10'>Blueskyのプロフィールのフィードからフィードを非表示にするツールです。何らかの理由でジェネレーターから公開の取り消しやUnpublishができない場合に使ってください。</p>
+        <p className='mb-2'>Blueskyのプロフィールのフィードからフィードを非表示にするツールです。何らかの理由でジェネレーターから公開の取り消しやUnpublishができない場合に使ってください。</p>
+        <p className='mb-10'><a href="https://blog.usounds.work/posts/feed-hide" target="_blank">使い方</a></p>
+
+        
 
         {false &&
           <ol className="items-center w-full space-y-4 justify-between sm:flex sm:space-x-8 sm:space-y-0 rtl:space-x-reverse mb-5">
@@ -296,7 +299,7 @@ export default function Home() {
                 </>
               ) : (
                 <>
-                  <span className="animate-spin inline-block size-4 mr-2 border-[3px] border-current border-t-transparent text-gray-700 rounded-full" role="status" aria-label="loading" />
+                  <span className="animate-spin inline-block size-4 mr-2 border-[3px] border-current border-t-transparent text-gray-500 rounded-full" role="status" aria-label="loading" />
                 </>
               )}
             </button>
@@ -377,7 +380,7 @@ export default function Home() {
                   </div>
                   <div className="flex-grow"> {/* テキスト部分を広げる */}
                     <p>
-                      <span> <a href={obj.feedUrl}>{obj.feedName || "《フィード名が空です》"}({obj.feedUrl.split('/').pop()})</a></span> {/* Feed名を表示 */}
+                      <span> <a href={obj.feedUrl} target="_blank">{obj.feedName || "《フィード名が空です》"}({obj.feedUrl.split('/').pop()})</a></span> {/* Feed名を表示 */}
                     </p>
                     <div>稼働サーバー：{obj.did}</div>
                     {obj.error && <div className="text-red-500">{obj.error}</div>}
