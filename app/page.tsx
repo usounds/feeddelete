@@ -53,7 +53,7 @@ export default function Home() {
 
 
   useEffect(() => {
-    
+
     const fetchData = async () => {
 
       if (ignoreRef.current) return;
@@ -203,7 +203,7 @@ export default function Home() {
   const handleDelete = async (feed: Feed) => {
     setIsLoading(true)
     setDeleteError("")
-    const success = '非表示にしました:'+feed.feedName
+    const success = '非表示にしました:' + feed.feedName
     if (oauthAgent === undefined) {
       setDeleteError("未ログインです")
       return
@@ -349,9 +349,13 @@ export default function Home() {
                   {deleteTarget.error && <div className="text-red-500">{deleteTarget.error}</div>}
                 </div>
                 {/* 右端に配置される非表示ボタン */}
-                <div className="ml-auto text-red-500 hover:underline text-right" onClick={() => handleDelete(deleteTarget)}>
-                  本当に非表示にする
-                </div>
+                {!isLoading ?
+                  <div className="ml-auto text-red-500 hover:underline text-right" onClick={() => handleDelete(deleteTarget)}>
+                    本当に非表示にする
+                  </div>
+                  :
+                  <span className="animate-spin inline-block size-4 mr-2 border-[3px] border-current border-t-transparent text-gray-700 rounded-full" role="status" aria-label="loading" />
+                }
               </div>
 
 
