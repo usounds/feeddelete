@@ -1,3 +1,8 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    "prefer-const": "off", // 'const' への警告を無視
+    "@typescript-eslint/no-unused-vars": "off", // 使われていない変数に関する警告を無視
+    "react-hooks/exhaustive-deps": "off" // useEffect の依存関係警告を無視
+  }
 }

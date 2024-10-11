@@ -1,13 +1,8 @@
 export const runtime = 'edge';
 import { clientMetadata } from '../../../lib/Def'
 
-export async function GET(request: Request) {
-    let client;
-    client = clientMetadata();
-
-    console.log(client);
-
-    return new Response(JSON.stringify(client), {
+export async function GET() {
+    return new Response(JSON.stringify(clientMetadata()), {
       status: 200,
       headers: {
         'content-type': 'application/json',

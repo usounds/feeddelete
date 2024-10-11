@@ -1,5 +1,4 @@
 "use client"
-import Image from "next/image";
 import { Agent } from "@atproto/api"
 import { BrowserOAuthClient, OAuthSession } from '@atproto/oauth-client-browser'
 import { useState, useEffect, useRef } from 'react'
