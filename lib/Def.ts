@@ -15,7 +15,7 @@ export type Feed = {
 
 export function clientMetadata(): OAuthClientMetadataInput {
 
-    const enc = encodeURIComponent
+ //   const enc = encodeURIComponent
 
     const publicUrl = process.env.NEXT_PUBLIC_URL
     const url = publicUrl || `http://127.0.0.1:${process.env.NEXT_PUBLIC_PORT}`
@@ -23,7 +23,7 @@ export function clientMetadata(): OAuthClientMetadataInput {
         client_name: 'AT Protocol Express App',
         client_id: publicUrl
             ? `${publicUrl}/api/client-metadata.json`
-            : `http://localhost?redirect_uri=${enc(`${url}/`)}&scope=${enc('atproto transition:generic')}`,
+            : `http://localhost?redirect_uri=${(`${url}/`)}&scope=${('atproto transition:generic')}`,
         client_uri: url,
         redirect_uris: [`${url}/`],
         scope: 'atproto transition:generic',

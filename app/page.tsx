@@ -1,14 +1,12 @@
 "use client"
+export const runtime = 'edge';
 import { Agent } from "@atproto/api"
 import { BrowserOAuthClient, OAuthSession } from '@atproto/oauth-client-browser'
 import { useState, useEffect, useRef } from 'react'
-import { createBrowserOAuthClient, generateRandomState } from '../lib/BrowserOAuthClientHelper'
+import { clientMetadata } from '../lib/Def';
 import { Feed } from '../lib/Def'
 
 export default function Home() {
-  let oauthClient: BrowserOAuthClient
-  //let oauthAgent: Agent
-
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [pdsUrl, setPdsUrl] = useState("bsky.social");
   const [phase, setPhase] = useState<number>(1);
@@ -42,7 +40,20 @@ export default function Home() {
   }
 
 
+  function generateRandomState(length: number = 32): string {
+    const array = new Uint8Array(length);
+    if (typeof window !== 'undefined' && window.crypto) {
+      window.crypto.getRandomValues(array);
+    }
+    return btoa(String.fromCharCode(...array))
+      .replace(/\+/g, '-') // Base64 の + を - に置換
+      .replace(/\//g, '_') // Base64 の / を _ に置換
+      .replace(/=+$/, ''); // Base64 の末尾の = を削除
+  }
+
+
   useEffect(() => {
+    
     const fetchData = async () => {
 
       if (ignoreRef.current) return;
@@ -55,8 +66,16 @@ export default function Home() {
       if (localPdsUrl) setPdsUrl(localPdsUrl);
 
       try {
-        if (localState && localPdsUrl) {
-          oauthClient = createBrowserOAuthClient(localPdsUrl);
+        if (localState && localPdsUrl && typeof window !== 'undefined' && window.navigator) {
+
+          const publicUrl = process.env.NEXT_PUBLIC_URL;
+          const url = publicUrl || `http://127.0.0.1:${process.env.NEXT_PUBLIC_PORT}`;
+
+          const oauthClient = new BrowserOAuthClient({
+            clientMetadata: clientMetadata(), // これもクライアントサイドでの呼び出しが必要
+            handleResolver: 'https://' + pdsUrl,
+          });
+
           result = await oauthClient.init() as undefined | { session: OAuthSession; state?: string | undefined };
         }
       } catch (e) {
@@ -162,7 +181,11 @@ export default function Home() {
   const oauthLogin = async () => {
     setIsLoading(true)
     setOauthMessage("")
-    oauthClient = createBrowserOAuthClient(pdsUrl)
+    /*
+    const oauthClient = new BrowserOAuthClient({
+      clientMetadata: clientMetadata(), // これもクライアントサイドでの呼び出しが必要
+      handleResolver: 'https://' + pdsUrl,
+    });
 
     const state = generateRandomState()
     window.localStorage.setItem('state', state)
@@ -174,6 +197,7 @@ export default function Home() {
       ui_locales: 'ja-JP', // Only supported by some OAuth servers (requires OpenID Connect support + i18n support)
       signal: new AbortController().signal, // Optional, allows to cancel the sign in (and destroy the pending authorization, for better security)
     })
+      */
   }
 
 
